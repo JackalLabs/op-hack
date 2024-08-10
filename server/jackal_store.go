@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+
 	"github.com/desmos-labs/cosmos-go-wallet/wallet"
 	"optijack/jackal/uploader"
 )
@@ -35,7 +36,7 @@ func (j *JackalStore) Get(ctx context.Context, key []byte) ([]byte, error) {
 }
 
 func (j *JackalStore) Put(ctx context.Context, key []byte, value []byte) error {
-	_, root, err := uploader.PostFile(ctx, j.q, value, j.w)
+	_, root, err := uploader.PostFile(ctx, value, j.q, j.w)
 	if err != nil {
 		return fmt.Errorf("failed to upload block | %w", err)
 	}

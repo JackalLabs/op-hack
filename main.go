@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/joho/godotenv"
 	wallet2 "optijack/jackal/wallet"
 	"optijack/server"
-	"os"
-	"time"
 
 	"github.com/desmos-labs/cosmos-go-wallet/types"
 	"github.com/desmos-labs/cosmos-go-wallet/wallet"
