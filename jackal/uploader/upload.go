@@ -179,7 +179,7 @@ func DownloadFile(ctx context.Context, merkle []byte, w *wallet.Wallet) ([]byte,
 	return nil, fmt.Errorf("could not find the file on any provider")
 }
 
-func PostFile(ctx context.Context, fileData []byte, q *Queue, w *wallet.Wallet) (string, []byte, error) {
+func PostFile(ctx context.Context, fileData []byte, key []byte, q *Queue, w *wallet.Wallet) (string, []byte, error) {
 	buf := bytes.NewBuffer(fileData)
 	treeBuffer := bytes.NewBuffer(buf.Bytes())
 
@@ -209,7 +209,7 @@ func PostFile(ctx context.Context, fileData []byte, q *Queue, w *wallet.Wallet) 
 		40,
 		0,
 		3,
-		"{\"memo\":\"Optimism makes Jackal a very happy protocol!\"}",
+		fmt.Sprintf("{\"memo\":\"Optimism makes Jackal a very happy protocol!\", \"opblock\":\"%x\"}", key),
 	)
 	msg.Expires = abci.Response.LastBlockHeight + ((100 * 365 * 24 * 60 * 60) / 6)
 	if err := msg.ValidateBasic(); err != nil {
