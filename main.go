@@ -53,8 +53,8 @@ func main() {
 	seed := os.Getenv("JACKAL_SEED")
 	w, err := wallet2.CreateWallet(seed, "m/44'/118'/0'/0/0", types.ChainConfig{
 		Bech32Prefix:  "jkl",
-		RPCAddr:       "https://jackal-testnet-v4-rpc.brocha.in:443",
-		GRPCAddr:      "jkl.grpc.t2.stavr.tech:5913",
+		RPCAddr:       os.Getenv("JACKAL_RPC"),
+		GRPCAddr:      os.Getenv("JACKAL_GRPC"),
 		GasPrice:      "0.02ujkl",
 		GasAdjustment: 1.5,
 	})
@@ -62,6 +62,8 @@ func main() {
 		fmt.Println("failed to create wallet")
 		panic(err)
 	}
+
+	fmt.Printf("Starting rollup server for %s...\n", w.AccAddress())
 
 	checkAndBuyStorage(w)
 
